@@ -2,19 +2,59 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Every Idea Ever Per Hour</title> <!--‑‑‑ title bar text -->
+<title>Every Idea Ever Per Hour a.k.a. The Entertainment</title>
 <style>
-  /* (same CSS — no changes needed) */
+  body {
+    font-family: sans-serif;
+    font-size: 1.2rem;
+    padding: 1rem;
+    margin: 0;
+    background-color: #f9f9f9;
+    color: #111;
+  }
+
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .box {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .label {
+    font-weight: bold;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0.25rem 0 1rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+  #countdown {
+    font-style: italic;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1.1rem;
+  }
 </style>
 </head>
 <body>
-  <!--‑‑‑ page header  -->
   <h1>Every Idea Ever Per Hour</h1>
 
   <div class="box">
     <p class="label">Current index:</p><p id="idx">‑</p>
 
-    <!--‑‑‑ change Tweet → Idea -->
     <p class="label">Idea:</p><p id="tweet">‑</p>
 
     <p class="label">LLM reply:</p><p id="reply">‑</p>
@@ -27,7 +67,7 @@ async function refresh() {
   const data = await res.json();
 
   document.getElementById("idx").textContent   = data.index;
-  document.getElementById("tweet").textContent = data.prompt;   // idea text
+  document.getElementById("tweet").textContent = data.prompt;
   document.getElementById("reply").textContent = data.reply;
 
   let secs = data.seconds_until_next;
@@ -36,7 +76,6 @@ async function refresh() {
     const m = String(Math.floor(secs / 60)).padStart(2, "0");
     const s = String(secs % 60).padStart(2, "0");
 
-    /*‑‑‑ change countdown label here */
     document.getElementById("countdown").textContent =
         `Next idea in ${m}:${s}`;
 
@@ -49,3 +88,4 @@ refresh();
 </script>
 </body>
 </html>
+
