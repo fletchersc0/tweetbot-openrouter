@@ -4,7 +4,7 @@ import requests, string, os, json, time, math, pathlib
 app = Flask(__name__)
 
 # ---------- CONFIG ---------- #
-EPOCH = 1718928000            # 2025‑07‑22 00:00 UTC as Unix time
+EPOCH = 1753189200 # 22/07/2025
 CACHE_FILE = pathlib.Path("cache.json")
 CHARS = [' '] + list(string.ascii_uppercase)
 BASE = len(CHARS)
