@@ -6,5 +6,5 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: python app.py
     envVars:
-      - key: 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
+      - key: OPENROUTER_API_KEY
         sync: false
