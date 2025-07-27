@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>every idea ever /hr </title>
+<title>every idea ever /hr</title>
 
-<!-- ────────── Load Pixelify Sans ────────── -->
+<!-- Load Pixelify Sans -->
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -12,9 +12,9 @@
   body {
     margin: 0;
     padding: 0;
-    background: #d6c7aa;                /* parchment‑like backdrop */
+    background: #d6c7aa;
     color: #000;
-    font-family: "Pixelify Sans", monospace, sans-serif; /* pixel font */
+    font-family: "Pixelify Sans", monospace, sans-serif;
     line-height: 1.35;
   }
 
@@ -23,26 +23,25 @@
     max-width: 900px;
     margin: 2rem auto;
     padding: 1.2rem;
-    border: 1px solid #000;
+    /* border: 1px solid #000;   <-- removed */
+    /* Optional soft outline instead of a hard border: */
+    /* box-shadow: 0 0 0 1px rgba(0,0,0,0.15); */
     background: inherit;
-    white-space: pre;                   /* keep ASCII art aligned */
+    white-space: pre;
     text-align: justify;
   }
 
-  /* ensure *all* spans justify when they wrap */
   .frame span {
     display: block;
     text-align: justify;
   }
 
-  /* ────────── Intro block (centred & justified) ────────── */
   .intro {
     max-width: 80%;
-    margin: 0 auto;                     /* centre the block */
+    margin: 0 auto;
     text-align: justify;
   }
 
-  /* ────────── Horizontal rule lines ────────── */
   .rule {
     margin: 0.7rem 0;
     display: block;
@@ -50,9 +49,8 @@
     background: #000;
   }
 
-  /* ────────── Dynamic fields ────────── */
   #idx, #tweet, #reply, #countdown {
-    white-space: pre-wrap;              /* wrap long LLM replies */
+    white-space: pre-wrap;
     word-break: break-word;
   }
 </style>
@@ -61,7 +59,7 @@
 <body>
 
 <div class="frame">
-<!-- ────────────────── ASCII HEADER ────────────────── -->
+<!-- ────────── ASCII HEADER ────────── -->
             __  __                   _              _        
            |  \/  | ___  _ __  _   _(_)_ __   ___  | |_ ___  
            | |\/| |/ _ \| '_ \| | | | | '_ \ / _ \ | __/ _ \ 
@@ -101,7 +99,6 @@
 </div>
 
 <script>
-/* ------------- ORIGINAL FUNCTIONALITY INTACT ------------- */
 async function refresh() {
   const res  = await fetch("/api/current");
   const data = await res.json();
