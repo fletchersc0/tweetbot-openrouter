@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <title>every idea ever /hr</title>
 
-<!-- Load Pixelify Sans -->
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
   /* ────────── Global look ────────── */
   body {
@@ -14,7 +11,8 @@
     padding: 0;
     background: #d6c7aa;
     color: #000;
-    font-family: "Pixelify Sans", monospace, sans-serif;
+    /* Match typical .txt editors on Windows */
+    font-family: "Courier New", Consolas, "Lucida Console", monospace;
     line-height: 1.35;
   }
 
@@ -23,12 +21,9 @@
     max-width: 900px;
     margin: 2rem auto;
     padding: 1.2rem;
-    /* border: 1px solid #000;   <-- removed */
-    /* Optional soft outline instead of a hard border: */
-    /* box-shadow: 0 0 0 1px rgba(0,0,0,0.15); */
     background: inherit;
-    white-space: pre;
-    text-align: justify;
+    white-space: pre;            /* Preserve ASCII spacing */
+    text-align: justify;         /* Keep long text tidy */
   }
 
   .frame span {
@@ -49,7 +44,10 @@
     background: #000;
   }
 
-  #idx, #tweet, #reply, #countdown {
+  #idx,
+  #tweet,
+  #reply,
+  #countdown {
     white-space: pre-wrap;
     word-break: break-word;
   }
@@ -65,7 +63,7 @@
  ▒██▎                                                        ▎                                      
 ▍▇███▓                                                           ▎                                  
 █▇██▌▎                                                                                              
-▃████▊       ▍                                                                            ▎         
+▃████▊       ▍                                                                            ▎          
 ▇████▂▍     ▌▇▎                                                                          ▍▇▎       ▎
 █████▇▊     ▄██                                                                          ██▒       ▍
 ▉████▇▂▍   ▌▉██▃                                                                        ▍▆██▎      ▊
@@ -101,7 +99,7 @@
 ████▅▇▆▃▃▇▉▃▓▊▓▓▃▎▓▌▎▊▊▓▎▉▓▓▓▊▓▊▉▎▊▎▎▌▎▎▎▎  ▌▎▎   ▎     ▎ ▎     ▎▊▎ ▎▎▎▎▎▊▎▓▎▓▊▓▉▓▓▉▎▓▎▌▊▓▊▓▓▆▃▃▃▇▓██▃▓
 █████▇█▇▃▇▅▃▓▓▓▎▓▓▉▃▌▓▃▊▃▊▃▉▎▓▊▓▉▎▊▎  ▌▓▎▎  █▎▌▎▎▂▎▎▎▎▂▎▌▊▎▎▌▓▂▊▎█▓▓█▓▓▊▎▎▎▎▎▌▊▎▉▃▊▎▇▇▂▇▇▃▓▅▊▃▃▉▇████
 █████▇▇▃▓▍▓▃▇█▅▇██▇▃█▇█▇▎▄▃██▃▓▇▅▃██▃▇▅▃▃▃▌▃█▓▎▃▎▃▃▉▓▎█▃▎▉▎▊▊▃█▊▇▓▊▊▓▉▓▇▃▎▃▃▃▃▃▂██▅▓▇▉▃▃▃▃▄██▇██▆▓▍▊█
-██████████▇▆▇████▇▃▇▅▇▃▇██▃▇█▇▇███▇█████▇▇▇▇▇▇▇█▇▃▇▅█▃▃▇▃▇▃█▇▅▃▃█▃▊▎▃▃█▇▇████████▇▆▃▇▆▇▇████▇██████
+██████████▇▆▇████▇▃▇▅▇▃▇██▃▇█▇▇███▇█████▇▇▇▇▇▇▇▇█▇▃▇▅█▃▃▇▃▇▃█▇▅▃▃█▃▊▎▃▃█▇▇████████▇▆▃▇▆▇▇████▇██████
 ██████████ █ +u r a creator  +u r a wanderer  +u r a burner  + u r a archivist  +u r a witness█████████████████████████
 ████████████████████████████████████████████████████████████████████████████████████████████████████
 <!-- ────────── Intro block ────────── -->
