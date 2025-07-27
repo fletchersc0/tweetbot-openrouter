@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Every Idea Ever Per Hour — The Entertainment</title>
+<title>every idea ever /hr </title>
 
 <!-- ────────── Load Pixelify Sans ────────── -->
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -71,31 +71,27 @@
 
 <!-- ────────── Intro block ────────── -->
 <div class="intro">
-─ A N I M E & T E C H   R E L A T E D   P R O C R A S T I N A T I O N ─
-.rule
- Welcome to the Every‑Idea‑Ever engine — a live stream of entropy.  
- Use SSL, dammit!  Endpoint:  /api/current
+─ E V E R Y  I D E A  E V E R  / H R ─
 
- +to creator  +to wanderer  +to burner  +to archivist  +to witness
-.rule
+  choose what u seek, or it is chosen for u. but prefer to choose what is chosen for u . 
+
+ +u r a creator  +u r a wanderer  +u r a burner  + u r a archivist  +u r a witness
 </div>
 
  > Current index:
  <span id="idx">‑</span>
 
- > Idea:
+ > Idea String:
  <span id="tweet">‑</span>
 
- > LLM reply:
+ > Idea:
  <span id="reply">‑</span>
 
  <span id="countdown">‑</span>
 
-.rule
  He's not perfect. You aren't either, and the two of you will never be  
  perfect. But if he can make you laugh at least once, causes you to think  
  twice… there's always one guy that is perfect for you — Bob M.
-.rule
 
           \   ^__^
            \  (oo)\_______
@@ -121,7 +117,7 @@ async function refresh() {
     const s = String(secs % 60).padStart(2, "0");
 
     document.getElementById("countdown").textContent =
-        `> Next idea in ${m}:${s}`;
+        `Next idea in ${m}:${s}`;
 
     if (secs-- > 0) setTimeout(tick, 1000);
     else refresh();
