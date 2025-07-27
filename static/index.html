@@ -3,14 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Every Idea Ever Per Hour — The Entertainment</title>
+
+<!-- ────────── Load Pixelify Sans ────────── -->
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
   /* ────────── Global look ────────── */
   body {
     margin: 0;
     padding: 0;
-    background: #d6c7aa;          /* updated background */
+    background: #d6c7aa;                /* parchment‑like backdrop */
     color: #000;
-    font-family: "Courier New", monospace;
+    font-family: "Pixelify Sans", monospace, sans-serif; /* pixel font */
     line-height: 1.35;
   }
 
@@ -20,26 +24,26 @@
     margin: 2rem auto;
     padding: 1.2rem;
     border: 1px solid #000;
-    background: inherit;          /* same colour inside */
-    white-space: pre;             /* preserve ASCII art exactly */
+    background: inherit;
+    white-space: pre;                   /* keep ASCII art aligned */
     text-align: justify;
   }
 
-  /* ensure *all* spans inside the frame justify when they wrap */
+  /* ensure *all* spans justify when they wrap */
   .frame span {
-    display: block;               /* allow full‑line justification */
+    display: block;
     text-align: justify;
   }
 
-  /* ────────── Centred intro block ────────── */
+  /* ────────── Intro block (centred & justified) ────────── */
   .intro {
-    max-width: 80%;               /* how wide the centred block should be */
-    margin: 0 auto;               /* centres the whole block */
-    text-align: justify;          /* keeps the lines justified */
+    max-width: 80%;
+    margin: 0 auto;                     /* centre the block */
+    text-align: justify;
   }
 
-  /* ────────── Section rules ────────── */
-  .rule {                         /* horizontal rule made of ─ */
+  /* ────────── Horizontal rule lines ────────── */
+  .rule {
     margin: 0.7rem 0;
     display: block;
     height: 1px;
@@ -48,7 +52,7 @@
 
   /* ────────── Dynamic fields ────────── */
   #idx, #tweet, #reply, #countdown {
-    white-space: pre-wrap;        /* wrap long LLM replies */
+    white-space: pre-wrap;              /* wrap long LLM replies */
     word-break: break-word;
   }
 </style>
@@ -65,7 +69,7 @@
            |_|  |_|\___/|_| |_|\__, |_|_| |_|\___|  \__\___/ 
                                |___/                         
 
-<!-- ────────── Intro block (centred & justified) ────────── -->
+<!-- ────────── Intro block ────────── -->
 <div class="intro">
 ─ A N I M E & T E C H   R E L A T E D   P R O C R A S T I N A T I O N ─
 .rule
