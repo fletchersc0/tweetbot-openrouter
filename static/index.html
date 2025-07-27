@@ -2,66 +2,94 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Every Idea Ever Per Hour a.k.a. The Entertainment</title>
+<title>Every Idea Ever Per Hour a.k.a. The Entertainment</title>
 <style>
+  /* --- Global look --- */
   body {
-    font-family: sans-serif;
-    font-size: 1.2rem;
-    padding: 1rem;
     margin: 0;
-    background-color: #f9f9f9;
-    color: #111;
+    padding: 0;
+    background:#d6c7aa;           /* new background */
+    color:#000;
+    font-family: "Courier New", monospace;
+    line-height:1.35;
   }
 
-  h1 {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 2rem;
+  /* --- Terminal‑style frame --- */
+  .frame {
+    max-width:900px;
+    margin:2rem auto;
+    padding:1.2rem;
+    border:1px solid #000;
+    background:inherit;           /* same colour inside */
+    white-space:pre;              /* preserve alignment */
   }
 
-  .box {
-    max-width: 600px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* --- Section headers --- */
+  .rule {                         /* horizontal rule made of ─ */
+    margin:0.7rem 0;
+    display:block;
+    height:1px;
+    background:#000;
   }
 
-  .label {
-    font-weight: bold;
-    margin-top: 1rem;
-    font-size: 1.1rem;
+  .hdr, .subhdr {
+    text-align:center;
+    font-weight:bold;
   }
 
-  p {
-    margin: 0.25rem 0 1rem;
-    font-size: 1.1rem;
-    line-height: 1.5;
-    word-wrap: break-word;
-  }
-
-  #countdown {
-    font-style: italic;
-    margin-top: 2rem;
-    text-align: center;
-    font-size: 1.1rem;
+  /* --- Dynamic fields (unchanged ids) --- */
+  #idx, #tweet, #reply, #countdown {
+    white-space:pre-wrap;         /* wrap long LLM replies */
+    word-break:break-word;
   }
 </style>
 </head>
 <body>
-  <h1>Every Idea Ever Per Hour a.k.a. The Entertainment</h1>
 
-  <div class="box">
-    <p class="label">Current index:</p><p id="idx">‑</p>
+<div class="frame">
+<!-- ────────────────── ASCII HEADER (edit as you like) ────────────────── -->
+            __  __                   _              _        
+           |  \/  | ___  _ __  _   _(_)_ __   ___  | |_ ___  
+           | |\/| |/ _ \| '_ \| | | | | '_ \ / _ \ | __/ _ \ 
+           | |  | | (_) | | | | |_| | | | | |  __/ | || (_) |
+           |_|  |_|\___/|_| |_|\__, |_|_| |_|\___|  \__\___/ 
+                               |___/                         
 
-    <p class="label">Idea:</p><p id="tweet">‑</p>
+─ A N I M E & T E C H   R E L A T E D   P R O C R A S T I N A T I O N ─
+.rule
+ Welcome to the Every‑Idea‑Ever engine — a live stream of entropy.  
+ Use SSL, dammit!  Endpoint:  /api/current
 
-    <p class="label">LLM reply:</p><p id="reply">‑</p>
-    <p id="countdown">‑</p>
-  </div>
+ +to creator  +to wanderer  +to burner  +to archivist  +to witness
+.rule
+
+ > Current index:
+ <span id="idx">‑</span>
+
+ > Idea:
+ <span id="tweet">‑</span>
+
+ > LLM reply:
+ <span id="reply">‑</span>
+
+ <span id="countdown">‑</span>
+
+.rule
+ He's not perfect. You aren’t either, and the two of you will never be  
+ perfect. But if he can make you laugh at least once, causes you to think  
+ twice… there’s always one guy that is perfect for you — Bob M.
+.rule
+
+          \   ^__^
+           \  (oo)\_______
+              (__)\       )\/\
+                  ||----w |
+                  ||     ||
+
+</div>
 
 <script>
+/* ------------- ORIGINAL FUNCTIONALITY INTACT ---------------- */
 async function refresh() {
   const res  = await fetch("/api/current");
   const data = await res.json();
@@ -72,12 +100,12 @@ async function refresh() {
 
   let secs = data.seconds_until_next;
 
-  function tick () {
+  function tick() {
     const m = String(Math.floor(secs / 60)).padStart(2, "0");
     const s = String(secs % 60).padStart(2, "0");
 
     document.getElementById("countdown").textContent =
-        `Next idea in ${m}:${s}`;
+        `> Next idea in ${m}:${s}`;
 
     if (secs-- > 0) setTimeout(tick, 1000);
     else refresh();
@@ -86,6 +114,6 @@ async function refresh() {
 }
 refresh();
 </script>
+
 </body>
 </html>
-
