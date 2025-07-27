@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Every Idea Ever Per Hour a.k.a. The Entertainment</title>
+<title>Every Idea Ever Per Hour — The Entertainment</title>
 <style>
   /* ────────── Global look ────────── */
   body {
@@ -22,7 +22,7 @@
     border: 1px solid #000;
     background: inherit;          /* same colour inside */
     white-space: pre;             /* preserve ASCII art exactly */
-    text-align: justify;          /* justify static lines (they won’t wrap) */
+    text-align: justify;
   }
 
   /* ensure *all* spans inside the frame justify when they wrap */
@@ -31,7 +31,14 @@
     text-align: justify;
   }
 
-  /* ────────── Section headers & rules ────────── */
+  /* ────────── Centred intro block ────────── */
+  .intro {
+    max-width: 80%;               /* how wide the centred block should be */
+    margin: 0 auto;               /* centres the whole block */
+    text-align: justify;          /* keeps the lines justified */
+  }
+
+  /* ────────── Section rules ────────── */
   .rule {                         /* horizontal rule made of ─ */
     margin: 0.7rem 0;
     display: block;
@@ -39,19 +46,10 @@
     background: #000;
   }
 
-  .hdr,
-  .subhdr {
-    text-align: center;
-    font-weight: bold;
-  }
-
   /* ────────── Dynamic fields ────────── */
-  #idx,
-  #tweet,
-  #reply,
-  #countdown {
+  #idx, #tweet, #reply, #countdown {
     white-space: pre-wrap;        /* wrap long LLM replies */
-    word-break: break-word;       /* break very long words */
+    word-break: break-word;
   }
 </style>
 </head>
@@ -61,12 +59,14 @@
 <div class="frame">
 <!-- ────────────────── ASCII HEADER ────────────────── -->
             __  __                   _              _        
-           |  \/  |asdasd ___  _ __  _   _(_)_ __   ___  | |_ ___  
+           |  \/  | ___  _ __  _   _(_)_ __   ___  | |_ ___  
            | |\/| |/ _ \| '_ \| | | | | '_ \ / _ \ | __/ _ \ 
            | |  | | (_) | | | | |_| | | | | |  __/ | || (_) |
            |_|  |_|\___/|_| |_|\__, |_|_| |_|\___|  \__\___/ 
                                |___/                         
 
+<!-- ────────── Intro block (centred & justified) ────────── -->
+<div class="intro">
 ─ A N I M E & T E C H   R E L A T E D   P R O C R A S T I N A T I O N ─
 .rule
  Welcome to the Every‑Idea‑Ever engine — a live stream of entropy.  
@@ -74,6 +74,7 @@
 
  +to creator  +to wanderer  +to burner  +to archivist  +to witness
 .rule
+</div>
 
  > Current index:
  <span id="idx">‑</span>
