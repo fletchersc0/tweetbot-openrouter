@@ -4,51 +4,62 @@
 <meta charset="UTF-8">
 <title>Every Idea Ever Per Hour a.k.a. The Entertainment</title>
 <style>
-  /* --- Global look --- */
+  /* ────────── Global look ────────── */
   body {
     margin: 0;
     padding: 0;
-    background:#d6c7aa;           /* new background */
-    color:#000;
+    background: #d6c7aa;          /* updated background */
+    color: #000;
     font-family: "Courier New", monospace;
-    line-height:1.35;
+    line-height: 1.35;
   }
 
-  /* --- Terminal‑style frame --- */
+  /* ────────── Terminal‑style frame ────────── */
   .frame {
-    max-width:900px;
-    margin:2rem auto;
-    padding:1.2rem;
-    border:1px solid #000;
-    background:inherit;           /* same colour inside */
-    white-space:pre;              /* preserve alignment */
-    text-align: justify;          /* justify all text in the frame */
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.2rem;
+    border: 1px solid #000;
+    background: inherit;          /* same colour inside */
+    white-space: pre;             /* preserve ASCII art exactly */
+    text-align: justify;          /* justify static lines (they won’t wrap) */
   }
 
-  /* --- Section headers --- */
+  /* ensure *all* spans inside the frame justify when they wrap */
+  .frame span {
+    display: block;               /* allow full‑line justification */
+    text-align: justify;
+  }
+
+  /* ────────── Section headers & rules ────────── */
   .rule {                         /* horizontal rule made of ─ */
-    margin:0.7rem 0;
-    display:block;
-    height:1px;
-    background:#000;
+    margin: 0.7rem 0;
+    display: block;
+    height: 1px;
+    background: #000;
   }
 
-  .hdr, .subhdr {
-    text-align:center;
-    font-weight:bold;
+  .hdr,
+  .subhdr {
+    text-align: center;
+    font-weight: bold;
   }
 
-  /* --- Dynamic fields (unchanged ids) --- */
-  #idx, #tweet, #reply, #countdown {
-    white-space:pre-wrap;         /* wrap long LLM replies */
-    word-break:break-word;
+  /* ────────── Dynamic fields ────────── */
+  #idx,
+  #tweet,
+  #reply,
+  #countdown {
+    white-space: pre-wrap;        /* wrap long LLM replies */
+    word-break: break-word;       /* break very long words */
   }
 </style>
 </head>
+
 <body>
 
 <div class="frame">
-<!-- ────────────────── ASCII HEADER (edit as you like) ────────────────── -->
+<!-- ────────────────── ASCII HEADER ────────────────── -->
             __  __                   _              _        
            |  \/  | ___  _ __  _   _(_)_ __   ___  | |_ ___  
            | |\/| |/ _ \| '_ \| | | | | '_ \ / _ \ | __/ _ \ 
@@ -86,11 +97,10 @@
               (__)\       )\/\
                   ||----w |
                   ||     ||
-
 </div>
 
 <script>
-/* ------------- ORIGINAL FUNCTIONALITY INTACT ---------------- */
+/* ------------- ORIGINAL FUNCTIONALITY INTACT ------------- */
 async function refresh() {
   const res  = await fetch("/api/current");
   const data = await res.json();
