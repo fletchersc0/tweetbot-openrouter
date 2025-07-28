@@ -69,7 +69,7 @@
       margin-top: 1rem;
     }
     
-    #idx, #tweet, #reply, #countdown, #datetime, #user {
+    #idx, #tweet, #reply, #countdown {
       white-space: pre-wrap;
       word-break: break-word;
       display: block;
@@ -206,7 +206,7 @@
     </div>
   </div>
 
-  <script>    
+  <script>
     async function refresh() {
       const res = await fetch("/api/current");
       const data = await res.json();
