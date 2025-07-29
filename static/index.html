@@ -91,28 +91,28 @@
       overflow: hidden;
     }
 
-    /* ASCII Barcode styling */
+    /* ASCII Barcode styling - INCREASED FONT SIZE */
     .ascii-barcode-container {
       position: absolute;
       top: 10px;
       left: 10px;
       font-family: monospace;
-      font-size: 0.4rem;
-      line-height: 0.8;
+      font-size: 0.7rem; /* Increased from 0.4rem to 0.7rem */
+      line-height: 1; /* Adjusted line height for larger font */
       white-space: pre;
       border: 1px solid black;
-      padding: 4px;
+      padding: 5px; /* Slightly increased padding */
     }
     
     .ascii-barcode {
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 3px; /* Slightly increased margin */
     }
     
     .ascii-barcode-label {
       text-align: center;
-      font-size: 0.4rem;
-      margin-top: 2px;
+      font-size: 0.7rem; /* Increased from 0.4rem to 0.7rem */
+      margin-top: 3px; /* Slightly increased margin */
     }
   </style>
 </head>
@@ -190,7 +190,7 @@
           <span id="countdown">‑</span>
         </div>
       </div>
-      <div class="bottom-right box" style="font-size: 0.6rem;">                                                                                                                                                                                                                                                                          
+      <div class="bottom-right box" style="font-size: 0.4rem;">                                                                                                                                                                                                                                                                          
         <!-- ASCII barcode will be placed here -->
         <div class="ascii-barcode-container">
           <div id="ascii-barcode" class="ascii-barcode"></div>
@@ -206,7 +206,7 @@
       if (!text) return ""; 
       
       // Convert text to a patterned string
-      let barcodeHeight = 8; // Height of the barcode in text lines
+      let barcodeHeight = 6; // Reduced height slightly for larger font
       let result = "";
       
       // Create a simple pattern based on the character codes
