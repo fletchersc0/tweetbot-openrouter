@@ -15,6 +15,7 @@ BASE = len(CHARS)
 MAX_LENGTH = 280
 MODEL = "mistralai/mistral-7b-instruct"
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+SITE_BACKGROUND_COLOR = "#d6c7aa"  # Website background color
 
 # ---------- HELPERS ---------- #
 def number_to_string(n: int) -> str:
@@ -58,15 +59,19 @@ def call_openrouter(prompt: str) -> str:
         return f"[ERROR] {exc}"
 
 def generate_barcode_base64(text: str) -> str:
-    """Generate a Code128 barcode and return it as base64 encoded string"""
+    """Generate a Code128 barcode with matching background color and return it as base64 encoded string"""
     # Ensure only capital letters and spaces in the string
     valid_text = ''.join(c for c in text if c in CHARS)
     
     # Create a BytesIO object to hold the image data
     buffer = io.BytesIO()
     
-    # Create the barcode (using Code128 which can handle letters and spaces)
-    Code128(valid_text, writer=ImageWriter()).write(buffer)
+    # Configure the ImageWriter with the website's background color
+    writer = ImageWriter()
+    writer.background = SITE_BACKGROUND_COLOR  # Set the background to match website
+    
+    # Create the barcode with the custom writer
+    Code128(valid_text, writer=writer).write(buffer)
     
     # Get the binary data and encode as base64
     buffer.seek(0)
