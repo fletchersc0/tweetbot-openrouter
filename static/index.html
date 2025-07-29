@@ -58,6 +58,7 @@
       overflow: auto;
       border: 1px solid black;
       font-size: 0.75rem;
+      position: relative; /* To position the barcode */
     }
 
     .box {
@@ -88,6 +89,37 @@
     #ascii-idea-line {
       white-space: pre;
       overflow: hidden;
+    }
+
+    /* Barcode styling */
+    .barcode-container {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: white;
+      padding: 5px;
+      border: 1px solid #000;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 40%;
+      font-size: 0.45rem;
+    }
+    
+    .barcode-image {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .barcode-label {
+      margin-top: 2px;
+      text-align: center;
+      font-size: 0.45rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
     }
   </style>
 </head>
@@ -193,6 +225,11 @@
                                             ▏ ▏      ▏   ▏                                          
                                           ▏          ▏       ▏                                      
                                                                                                                                                                                                                 
+        <!-- Barcode will be placed here -->
+        <div class="barcode-container">
+          <img id="barcode-image" class="barcode-image" src="" alt="Barcode of Idea">
+          <div class="barcode-label">Scan for Idea</div>
+        </div>
       </div>
     </div>
   </div>
@@ -209,6 +246,9 @@
       
       // Also update the ASCII art line to include the idea string
       document.getElementById("ascii-idea").textContent = data.prompt;
+      
+      // Update the barcode
+      document.getElementById("barcode-image").src = `data:image/png;base64,${data.barcode}`;
 
       let secs = data.seconds_until_next;
 
