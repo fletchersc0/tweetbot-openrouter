@@ -91,33 +91,28 @@
       overflow: hidden;
     }
 
-    /* Barcode styling - updated for top-left positioning in bottom-right section */
-    .barcode-container {
+    /* ASCII Barcode styling */
+    .ascii-barcode-container {
       position: absolute;
       top: 10px;
       left: 10px;
-      border: 1px solid #000;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 40%;
-      font-size: 0.45rem;
+      font-family: monospace;
+      font-size: 0.4rem;
+      line-height: 0.8;
+      white-space: pre;
+      border: 1px solid black;
+      padding: 4px;
     }
     
-    .barcode-image {
-      max-width: 100%;
-      height: auto;
+    .ascii-barcode {
+      display: block;
+      margin-bottom: 2px;
     }
     
-    .barcode-label {
-      margin-top: 2px;
+    .ascii-barcode-label {
       text-align: center;
-      font-size: 0.45rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
+      font-size: 0.4rem;
+      margin-top: 2px;
     }
   </style>
 </head>
@@ -196,16 +191,48 @@
         </div>
       </div>
       <div class="bottom-right box" style="font-size: 0.4rem;">                                                                                                                                                                                                                                                                          
-        <!-- Barcode positioned in the top-left of bottom-right section -->
-        <div class="barcode-container">
-          <img id="barcode-image" class="barcode-image" src="" alt="Barcode of Idea">
-          <div class="barcode-label">Scan for Idea</div>
+        <!-- ASCII barcode will be placed here -->
+        <div class="ascii-barcode-container">
+          <div id="ascii-barcode" class="ascii-barcode"></div>
+          <div class="ascii-barcode-label">Scan for Idea</div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
+    // Simple function to create an ASCII art barcode representation
+    function generateASCIIBarcode(text) {
+      if (!text) return ""; 
+      
+      // Convert text to a patterned string
+      let barcodeHeight = 8; // Height of the barcode in text lines
+      let result = "";
+      
+      // Create a simple pattern based on the character codes
+      let pattern = "";
+      for (let i = 0; i < text.length; i++) {
+        let charCode = text.charCodeAt(i);
+        // Convert the character code to a binary-like pattern
+        let binPattern = (charCode % 2 === 0) ? "█ " : " █";
+        let binPattern2 = (charCode % 3 === 0) ? "██ " : " ██";
+        let binPattern3 = (charCode % 5 === 0) ? "█  " : "  █";
+        
+        // Add some variation based on the character
+        pattern += binPattern + binPattern2 + binPattern3;
+      }
+      
+      // Add start and end markers for the barcode
+      pattern = "█ █" + pattern + "█ █";
+      
+      // Generate the multi-line barcode
+      for (let i = 0; i < barcodeHeight; i++) {
+        result += pattern + "\n";
+      }
+      
+      return result;
+    }
+
     async function refresh() {
       const res = await fetch("/api/current");
       const data = await res.json();
@@ -218,8 +245,8 @@
       // Also update the ASCII art line to include the idea string
       document.getElementById("ascii-idea").textContent = data.prompt;
       
-      // Update the barcode
-      document.getElementById("barcode-image").src = `data:image/png;base64,${data.barcode}`;
+      // Generate and update the ASCII barcode
+      document.getElementById("ascii-barcode").textContent = generateASCIIBarcode(data.prompt);
 
       let secs = data.seconds_until_next;
 
