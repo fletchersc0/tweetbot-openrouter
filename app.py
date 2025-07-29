@@ -1,9 +1,13 @@
 from flask import Flask, jsonify, send_from_directory
 import requests, string, os, json, time, math, pathlib
+import io
+import base64
+from barcode import Code128
+from barcode.writer import ImageWriter
 
 app = Flask(__name__)
 
-# ---------- CONFIG ---------- #
+# ---------- CONFIG ---------- #
 EPOCH = 1753189200 # 22/07/2025
 CACHE_FILE = pathlib.Path("cache.json")
 CHARS = [' '] + list(string.ascii_uppercase)
@@ -12,7 +16,7 @@ MAX_LENGTH = 280
 MODEL = "mistralai/mistral-7b-instruct"
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
-# ---------- HELPERS ---------- #
+# ---------- HELPERS ---------- #
 def number_to_string(n: int) -> str:
     s = ""
     while n:
@@ -53,10 +57,26 @@ def call_openrouter(prompt: str) -> str:
     except Exception as exc:
         return f"[ERROR] {exc}"
 
-# ---------- ROUTES ---------- #
+def generate_barcode_base64(text: str) -> str:
+    """Generate a Code128 barcode and return it as base64 encoded string"""
+    # Ensure only capital letters and spaces in the string
+    valid_text = ''.join(c for c in text if c in CHARS)
+    
+    # Create a BytesIO object to hold the image data
+    buffer = io.BytesIO()
+    
+    # Create the barcode (using Code128 which can handle letters and spaces)
+    Code128(valid_text, writer=ImageWriter()).write(buffer)
+    
+    # Get the binary data and encode as base64
+    buffer.seek(0)
+    encoded = base64.b64encode(buffer.getvalue()).decode('ascii')
+    return encoded
+
+# ---------- ROUTES ---------- #
 @app.route("/api/current")
 def api_current():
-    """Return today’s hour‑indexed tweet + LLM reply."""
+    """Return today's hour‑indexed tweet + LLM reply."""
     cache = load_cache()
 
     # work out hour index since epoch
@@ -71,12 +91,16 @@ def api_current():
 
     # seconds until next hour
     secs_left = 3600 - int(time.time() % 3600)
+    
+    # Generate barcode for the prompt
+    barcode_base64 = generate_barcode_base64(cache[str(n)]["prompt"])
 
     return jsonify(
         index=n,
         prompt=cache[str(n)]["prompt"],
         reply=cache[str(n)]["reply"],
         seconds_until_next=secs_left,
+        barcode=barcode_base64,
     )
 
 @app.route("/")
@@ -84,7 +108,7 @@ def index():
     # serve static HTML file
     return send_from_directory("static", "index.html")
 
-# ---------- ENTRY ---------- #
+# ---------- ENTRY ---------- #
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
