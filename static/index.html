@@ -10,7 +10,6 @@
       padding: 0;
       height: 100%;
       overflow: hidden; /* Prevents any scroll beyond content */
-      line-height: 1; /* Prevents line-height from adding space */
     }
 
     body {
@@ -45,6 +44,8 @@
       overflow: auto;
       border: 1px solid black;
       font-size: 0.6rem;
+      line-height: normal; /* Restore normal line height for ASCII art */
+      white-space: pre;
     }
 
     .right {
@@ -62,14 +63,22 @@
     }
 
     .bottom-right {
-      overflow: auto;
+      overflow: hidden;
       border: 1px solid black;
       font-size: 0.75rem;
       position: relative; /* To position the barcode */
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .box {
       padding: 1rem;
+    }
+
+    /* Special handling for ASCII art box */
+    .left.box {
+      line-height: 1.2; /* Adjusted line height for ASCII art */
     }
 
     /* Display elements styling */
@@ -98,28 +107,32 @@
       overflow: hidden;
     }
 
-    /* ASCII Barcode styling - INCREASED FONT SIZE */
+    /* ASCII Barcode styling - fills the entire bottom right section */
     .ascii-barcode-container {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: monospace;
-      font-size: 0.7rem; /* Increased from 0.4rem to 0.7rem */
-      line-height: 1; /* Adjusted line height for larger font */
+      font-size: 0.7rem;
+      line-height: 1;
       white-space: pre;
-      border: 1px solid black;
-      padding: 5px; /* Slightly increased padding */
+      padding: 0;
+      width: 100%;
+      height: 100%;
     }
     
     .ascii-barcode {
-      display: block;
-      margin-bottom: 3px; /* Slightly increased margin */
-    }
-    
-    .ascii-barcode-label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
       text-align: center;
-      font-size: 0.7rem; /* Increased from 0.4rem to 0.7rem */
-      margin-top: 3px; /* Slightly increased margin */
     }
   </style>
 </head>
@@ -197,23 +210,28 @@
           <span id="countdown">‑</span>
         </div>
       </div>
-      <div class="bottom-right box" style="font-size: 0.4rem;">                                                                                                                                                                                                                                                                          
-        <!-- ASCII barcode will be placed here -->
+      <div class="bottom-right box">                                                                                                                                                                                                                                                                          
+        <!-- ASCII barcode will fill this entire section -->
         <div class="ascii-barcode-container">
           <div id="ascii-barcode" class="ascii-barcode"></div>
-          <div class="ascii-barcode-label">Scan for Idea</div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Simple function to create an ASCII art barcode representation
+    // Simple function to create an ASCII art barcode representation that fills the container
     function generateASCIIBarcode(text) {
       if (!text) return ""; 
       
-      // Convert text to a patterned string
-      let barcodeHeight = 6; // Reduced height slightly for larger font
+      // Get container dimensions
+      const container = document.querySelector('.bottom-right');
+      const availableHeight = container.clientHeight - 30; // Subtracting padding
+      
+      // Calculate how many lines we can fit in the available height
+      let barcodeHeight = Math.floor(availableHeight / 16); // Approximate line height
+      barcodeHeight = Math.max(6, barcodeHeight); // Ensure at least 6 lines
+      
       let result = "";
       
       // Create a simple pattern based on the character codes
@@ -272,6 +290,14 @@
     
     // Start the process on page load
     refresh();
+    
+    // Make the barcode responsive to window resizing
+    window.addEventListener('resize', function() {
+      const currentText = document.getElementById("tweet").textContent;
+      if (currentText !== "‑") {
+        document.getElementById("ascii-barcode").textContent = generateASCIIBarcode(currentText);
+      }
+    });
   </script>
 </body>
 </html>
