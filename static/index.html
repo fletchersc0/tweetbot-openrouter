@@ -94,13 +94,16 @@
       border: 1px solid black;
       font-size: 0.75rem;
       position: relative; /* To position the barcode */
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding: 0; /* Remove padding for barcode section */
     }
 
     .box {
       padding: 1rem;
+    }
+    
+    /* Special case for bottom-right box - no padding */
+    .bottom-right.box {
+      padding: 0;
     }
 
     /* Special handling for ASCII art box */
@@ -143,7 +146,7 @@
       bottom: 0;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start; /* Align to the top instead of center */
       font-family: monospace;
       font-size: 0.7rem;
       line-height: 1;
@@ -154,12 +157,10 @@
     }
     
     .ascii-barcode {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: block; /* Changed from flex to block for top alignment */
       width: 100%;
-      height: 100%;
       text-align: center;
+      padding-top: 0; /* Ensure no top padding */
     }
   </style>
 </head>
@@ -262,11 +263,11 @@ choose what u seek, or it is chosen for u. but prefer to choose what is chosen f
       
       // Get container dimensions
       const container = document.querySelector('.bottom-right');
-      const availableHeight = container.clientHeight - 30; // Subtracting padding
+      const availableHeight = container.clientHeight; // Using full height now
       
       // Calculate how many lines we can fit in the available height
       let barcodeHeight = Math.floor(availableHeight / 16); // Approximate line height
-      barcodeHeight = Math.max(6, barcodeHeight); // Ensure at least 6 lines
+      barcodeHeight = Math.max(8, barcodeHeight); // Ensure at least 8 lines
       
       let result = "";
       
