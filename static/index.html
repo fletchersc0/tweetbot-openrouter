@@ -2,6 +2,7 @@
 <html lang="en" style="margin:0; padding:0; height:100%;">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>every idea ever /hr</title>
   <style>
     html, body {
@@ -37,6 +38,32 @@
       grid-area: header;
       border: 1px solid black;
       line-height: 1;
+      padding: 1rem;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .header-ascii {
+      flex: 1;
+      min-width: 320px; /* Ensures adequate space for ASCII art */
+      white-space: pre;
+      line-height: 1;
+    }
+
+    .header-text {
+      flex: 1;
+      min-width: 300px; /* Ensures text has enough space */
+      white-space: pre-wrap;
+      line-height: 1.2;
+      padding-left: 10px;
+    }
+
+    /* On smaller screens, columns stack */
+    @media (max-width: 768px) {
+      .header-ascii, .header-text {
+        width: 100%;
+      }
     }
 
     .left {
@@ -138,16 +165,25 @@
 </head>
 <body>
   <div class="grid">
-    <div class="header box">
+    <div class="header">
+      <div class="header-ascii">
                                                 __                     
                                          __    /\ \                    
-   __   __  __     __   _ __   __  __   /\_\   \_\ \     __     __         __   __  __     __   _ __      choose what u seek, or it is chosen for u. but prefer to choose what is chosen for u .
- /'__`\/\ \/\ \  /'__`\/\`'__\/\ \/\ \  \/\ \  /'_` \  /'__`\ /'__`\     /'__`\/\ \/\ \  /'__`\/\`'__\     
-/\  __/\ \ \_/ |/\  __/\ \ \/ \ \ \_\ \  \ \ \/\ \L\ \/\  __//\ \L\.\_  /\  __/\ \ \_/ |/\  __/\ \ \/    +u r a creator  +u r a wanderer  +u r a burner  + u r a archivist  +u r a witness
-\ \____\\ \___/ \ \____\\ \_\  \/`____ \  \ \_\ \___,_\ \____\ \__/.\_\ \ \____\\ \___/ \ \____\\ \_\    +u r a creator  +u r a wanderer  +u r a burner  + u r a archivist  +u r a witness
- \/____/ \/__/   \/____/ \/_/   `/___/> \  \/_/\/__,_ /\/____/\/__/\/_/  \/____/ \/__/   \/____/ \/_/    +u r a creator  +u r a wanderer  +u r a burner  + u r a archivist  +u r a witness
+   __   __  __     __   _ __   __  __   /\_\   \_\ \     __     __      
+ /'__`\/\ \/\ \  /'__`\/\`'__\/\ \/\ \  \/\ \  /'_` \  /'__`\ /'__`\    
+/\  __/\ \ \_/ |/\  __/\ \ \/ \ \ \_\ \  \ \ \/\ \L\ \/\  __//\ \L\.\_  
+\ \____\\ \___/ \ \____\\ \_\  \/`____ \  \ \_\ \___,_\ \____\ \__/.\_\ 
+ \/____/ \/__/   \/____/ \/_/   `/___/> \  \/_/\/__,_ /\/____/\/__/\/_/  
                                    /\___/                              
                                    \/__/                                                              
+      </div>
+      <div class="header-text">
+choose what u seek, or it is chosen for u. but prefer to choose what is chosen for u .
+
++u r a creator  +u r a wanderer  +u r a burner  + u r a archivist  +u r a witness
++u r a creator  +u r a wanderer  +u r a burner  + u r a archivist  +u r a witness
++u r a creator  +u r a wanderer  +u r a burner  + u r a archivist  +u r a witness
+      </div>
     </div>
 
     <div class="left box">                                                                                                                                                                          
