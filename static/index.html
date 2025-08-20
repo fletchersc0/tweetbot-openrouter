@@ -10,13 +10,14 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      overflow: hidden; /* Prevents any scroll beyond content */
     }
 
     body {
-      background: #d6c7aa;
+      background: #d6c7aa; /* Matching original tool background */
       font-family: "Courier New", Consolas, monospace;
       white-space: pre;
+      overflow-x: auto;
       display: flex;
       flex-direction: column;
     }
@@ -33,23 +34,6 @@
       flex: 1;
     }
 
-    /* ASCII art wrapper with scaling */
-    .ascii-wrapper {
-      overflow: auto;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ascii-content {
-      transform-origin: center;
-      white-space: pre;
-      line-height: 1;
-      font-size: 0.7rem; /* Base size for ASCII art */
-    }
-
     .header {
       grid-area: header;
       border: 1px solid black;
@@ -58,30 +42,36 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      overflow: auto;
-      max-height: 25vh; /* Limit header height */
     }
 
     .header-ascii {
       flex: 1;
-      min-width: 320px;
+      min-width: 320px; /* Ensures adequate space for ASCII art */
       white-space: pre;
       line-height: 1;
     }
 
     .header-text {
       flex: 1;
-      min-width: 300px;
+      min-width: 300px; /* Ensures text has enough space */
       white-space: pre-wrap;
       line-height: 1.2;
       padding-left: 10px;
+    }
+
+    /* On smaller screens, columns stack */
+    @media (max-width: 768px) {
+      .header-ascii, .header-text {
+        width: 100%;
+      }
     }
 
     .left {
       grid-area: left;
       overflow: auto;
       border: 1px solid black;
-      line-height: normal;
+      font-size: 0.6rem;
+      line-height: normal; /* Restore normal line height for ASCII art */
       white-space: pre;
     }
 
@@ -95,24 +85,31 @@
     .top-right {
       overflow: auto;
       border: 1px solid black;
-      white-space: pre-wrap;
-      font-family: "Courier New", Consolas, "Lucida Console", monospace;
-      font-size: 0.8rem;
+      white-space: pre-wrap; /* To handle idea text wrapping */
+      font-family: "Courier New", Consolas, "Lucida Console", monospace; /* Matching ASCII font */
+      font-size: 0.8rem; /* Adjust font size to match ASCII art */
     }
 
     .bottom-right {
       overflow: hidden;
       border: 1px solid black;
-      position: relative;
-      padding: 0;
+      font-size: 0.75rem;
+      position: relative; /* To position the barcode */
+      padding: 0; /* Remove padding for barcode section */
     }
 
     .box {
       padding: 1rem;
     }
     
+    /* Special case for bottom-right box - no padding */
     .bottom-right.box {
       padding: 0;
+    }
+
+    /* Special handling for ASCII art box */
+    .left.box {
+      line-height: 1.2; /* Adjusted line height for ASCII art */
     }
 
     /* Display elements styling */
@@ -127,14 +124,12 @@
       margin-bottom: 0.5rem;
     }
 
-    /* Hide scrollbars but keep functionality */
+    /* Optional: remove scrollbar styling, leave if debugging */
     ::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
+      display: none;
     }
-    
-    ::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.2);
+    html {
+      scrollbar-width: none;
     }
     
     /* ASCII idea line styling */
@@ -143,7 +138,7 @@
       overflow: hidden;
     }
 
-    /* ASCII Barcode styling */
+    /* ASCII Barcode styling - fills the entire bottom right section */
     .ascii-barcode-container {
       position: absolute;
       top: 0;
@@ -152,68 +147,43 @@
       bottom: 0;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: flex-start; /* Align to the top instead of center */
       font-family: monospace;
+      font-size: 0.7rem;
       line-height: 1;
       white-space: pre;
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
     }
     
     .ascii-barcode {
-      display: block;
+      display: block; /* Changed from flex to block for top alignment */
       width: 100%;
       text-align: center;
-      padding-top: 0;
-      font-size: 0.7rem;
+      padding-top: 0; /* Ensure no top padding */
     }
 
-    /* Responsive adjustments */
+    /* Responsive adjustments for ASCII art */
     @media (max-width: 1200px) {
-      .ascii-content {
-        font-size: 0.6rem;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .ascii-content {
-        font-size: 0.5rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto 1fr;
-        grid-template-areas:
-          "header"
-          "left"
-          "right";
+      /* Allow horizontal scrolling for ASCII sections */
+      .left, .header-ascii {
+        overflow-x: auto;
       }
       
-      .left {
-        max-height: 30vh;
-      }
-      
-      .header-ascii, .header-text {
-        width: 100%;
-        font-size: 0.7rem;
-      }
-      
-      .ascii-content {
-        font-size: 0.45rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .ascii-content {
-        font-size: 0.4rem;
-      }
-      
-      .header {
-        font-size: 0.6rem;
+      /* Adjust grid for very small screens */
+      @media (max-width: 480px) {
+        .grid {
+          grid-template-columns: 1fr;
+          grid-template-areas:
+            "header"
+            "left" 
+            "right";
+        }
+        
+        .left {
+          max-height: 30vh;
+        }
       }
     }
   </style>
@@ -221,8 +191,7 @@
 <body>
   <div class="grid">
     <div class="header">
-      <div class="header-ascii ascii-wrapper">
-        <div class="ascii-content">
+      <div class="header-ascii">
                                                 __                     
                                          __    /\ \                    
    __   __  __     __   _ __   __  __   /\_\   \_\ \     __     __         __   __  __     __   _ __      
@@ -232,7 +201,6 @@
  \/____/ \/__/   \/____/ \/_/   `/___/> \  \/_/\/__,_ /\/____/\/__/\/_/  \/____/ \/__/   \/____/ \/_/   
                                    /\___/                              
                                    \/__/                                                               
-        </div>
       </div>
       <div class="header-text">
 choose what u seek, or it is chosen for u. but prefer to choose what is chosen for u .
@@ -243,8 +211,7 @@ choose what u seek, or it is chosen for u. but prefer to choose what is chosen f
       </div>
     </div>
 
-    <div class="left box ascii-wrapper">
-      <div class="ascii-content">                                                                                                                                                                          
+    <div class="left box">                                                                                                                                                                          
                                 ▏▌▊▉▂▂▂▉▊▋▏                                             
                              ▎▉▃▄▉▍▌▋▄▂▄███▅▉▎                                           
                           ▌▅▄▉▏  ▏▋▌▍▊▉▁▆██▇▋                                         
@@ -289,8 +256,7 @@ choose what u seek, or it is chosen for u. but prefer to choose what is chosen f
                     ▎▌   ▋▇██████▌▂▅▅███████▄▅▅█████████▊▎    ▍▉▁                         
                    ▎▌▌   ▏▍▄████▇▆███████████▆█████████▊▏   ▏▌▅▅▅▊▋▌▍▎▎▏                  
     ▏▎▎▎▎▎▎▎▌▍▌▍     ▌▉▁▃▄▄▄▇███▅▄▃▃▅████▄▄▃▂▁▋▏ ▎▌▊▉▁▁▉▋▌▍▍▍▍▍▍▎▏                 
-                                      ▏▎▏▏      ▏▎▏    
-      </div>
+                                      ▏▎▏▏      ▏▎▏                                       
     </div>
 
     <div class="right">
@@ -353,28 +319,6 @@ choose what u seek, or it is chosen for u. but prefer to choose what is chosen f
       return result;
     }
 
-    // Function to dynamically adjust the ASCII art scaling
-    function adjustAsciiArtScaling() {
-      const wrappers = document.querySelectorAll('.ascii-wrapper');
-      
-      wrappers.forEach(wrapper => {
-        const content = wrapper.querySelector('.ascii-content');
-        if (!content) return;
-        
-        // Calculate the appropriate scale based on container size and content size
-        let containerWidth = wrapper.clientWidth;
-        let contentWidth = content.scrollWidth;
-        
-        // Only scale down, never up
-        if (contentWidth > containerWidth) {
-          const scale = Math.max(0.3, containerWidth / contentWidth);
-          content.style.transform = `scale(${scale})`;
-        } else {
-          content.style.transform = 'scale(1)';
-        }
-      });
-    }
-
     async function refresh() {
       const res = await fetch("/api/current");
       const data = await res.json();
@@ -408,11 +352,8 @@ choose what u seek, or it is chosen for u. but prefer to choose what is chosen f
     // Start the process on page load
     refresh();
     
-    // Run scaling function on load and whenever window is resized
-    window.addEventListener('load', adjustAsciiArtScaling);
-    window.addEventListener('resize', () => {
-      adjustAsciiArtScaling();
-      
+    // Make the barcode responsive to window resizing
+    window.addEventListener('resize', function() {
       const currentText = document.getElementById("tweet").textContent;
       if (currentText !== "‑") {
         document.getElementById("ascii-barcode").textContent = generateASCIIBarcode(currentText);
